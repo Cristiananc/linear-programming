@@ -126,7 +126,20 @@ function flowFree(model, n, nodesInput, c, nodesColors)
     return value.(N), value.(C)
 end
 
+function tabuleiro(c, F)
+    Tabuleiro = zeros(c, c)
+    for i in 1:(size(F)[1])
+        if F[i][1] % c == 0
+            Tabuleiro[trunc(Int, F[i][1]/c), c] = F[i][3]
+        else
+            Tabuleiro[trunc(Int, F[i][1]/c + 1), trunc(Int, F[i][1] % c)] = F[i][3]
+        end
+    end
+    return Tabuleiro
+end
+
 #Exemplo
 M, C = flowFree(model, 6, nodesInput, 6, nodesColors);
-M[1,:,:]
+F = findall(x->x==1, value.(M))
+tabuleiro(6,F)
 
